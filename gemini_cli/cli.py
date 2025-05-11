@@ -21,8 +21,8 @@ def main():
     parser.add_argument(
         "-m", "--model",
         type=str,
-        default="gemini-2.0-flash", # Or your preferred default
-        help="The Gemini AI model to use. (default: gemini-1.5-flash)"
+        default="gemini-2.0-flash", 
+        help="The Gemini AI model to use. (default: gemini-2.0-flash)"
     )
     parser.add_argument(
         "-o", "--max-output",
