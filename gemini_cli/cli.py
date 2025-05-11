@@ -6,7 +6,6 @@ import textwrap
 import logging
 from .main import generate_text
 
-# Configure logger for this module
 logger = logging.getLogger(__name__)
 
 class AnsiColors:
@@ -22,21 +21,17 @@ def safe_print(text: str) -> None:
     Print text to the console without breaking words across lines.
     If a word exceeds the terminal width, pad it with spaces to fit.
     """
-    # Determine terminal width, fallback to 80
     try:
         width = shutil.get_terminal_size().columns
     except Exception:
         width = 80
 
-    # Prepare a TextWrapper that doesn't break long words or hyphens
     wrapper = textwrap.TextWrapper(width=width, break_long_words=False, break_on_hyphens=False)
 
-    # Pre-process text: pad any word longer than width
     def pad_long_words(s: str) -> str:
         parts = []
         for word in s.split():
             if len(word) > width:
-                # pad with spaces to exact width
                 parts.append(word + " " * (width - len(word)))
             else:
                 parts.append(word)
@@ -47,6 +42,8 @@ def safe_print(text: str) -> None:
 
     for line in lines:
         print(line)
+    
+    print("\n")
 
 
 def main():
@@ -83,7 +80,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Validate arguments
     if not (0.0 <= args.temperature <= 2.0):
         print(f"{AnsiColors.RED}{AnsiColors.BOLD}Error: Temperature must be between 0.0 and 2.0.{AnsiColors.RESET}")
         sys.exit(1)
@@ -92,8 +88,7 @@ def main():
         print(f"{AnsiColors.RED}{AnsiColors.BOLD}Error: Maximum output tokens must be positive.{AnsiColors.RESET}")
         sys.exit(1)
 
-    # Notify user
-    print(f"{AnsiColors.YELLOW}Generating response...{AnsiColors.RESET}\n")
+    print(f"{AnsiColors.YELLOW}Generating response...{AnsiColors.RESET}\n", end="")
 
     try:
         response_text = generate_text(
@@ -107,7 +102,6 @@ def main():
         print(f"{AnsiColors.RED}{AnsiColors.BOLD}Error: {e}{AnsiColors.RESET}")
         sys.exit(1)
 
-    # Print the response safely
     safe_print(response_text)
 
 

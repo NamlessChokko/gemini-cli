@@ -7,7 +7,6 @@ from google.genai import Client, types
 
 from .config import GOOGLE_API_KEY, SYSTEM_INSTRUCTIONS
 
-# Configure logger for this module
 logger = logging.getLogger(__name__)
 
 
@@ -50,19 +49,16 @@ def generate_text(
             config=config,
         )
 
-        # Extract first candidate text
         text = _extract_first_text(response)
         if text is not None:
             return text
 
-        # If no text found, maybe there is feedback explaining why
         if getattr(response, "prompt_feedback", None):
             raise ValueError(f"Generation failed: {response.prompt_feedback}")
 
         raise ValueError("Generation failed: no content returned by the API.")
 
     except Exception as e:
-        # Log full exception for debugging, then re-raise as RuntimeError
         logger.exception("Error while calling Gemini API")
         raise RuntimeError(f"Error communicating with Gemini API: {e}") from e
 
@@ -85,7 +81,6 @@ def _extract_first_text(response) -> Optional[str]:
             return parts[0].text or ""
 
     except Exception:
-        # In case the API shape changed, we log and return None
         logger.debug("Failed to extract text from response", exc_info=True)
 
     return None
