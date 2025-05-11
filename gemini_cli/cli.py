@@ -5,7 +5,7 @@ from .main import generate_text
 
 class AnsiColors:
     RED = "\033[91m"
-    GREEN = "\033[92m" 
+    GREEN = "\033[92m"
     RESET = "\033[0m"
     BOLD = "\033[1m"
     YELLOW = "\033[93m"
