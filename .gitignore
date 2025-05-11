@@ -38,7 +38,7 @@ MANIFEST
 *.spec
 
 # dotenv
-.env* # Ignorar .env y cualquier archivo que empiece con .env (ej .env.example si lo quieres privado)
+.env* 
 
 # IDE / Editor specific
 .vscode/
