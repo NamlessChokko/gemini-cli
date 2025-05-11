@@ -28,8 +28,8 @@ def main():
     parser.add_argument(
         "-m", "--model",
         type=str,
-        default="gemini-1.5-flash",
-        help="The Gemini AI model to use. (default: gemini-1.5-flash)"
+        default="gemini-2.0-flash",
+        help="The Gemini AI model to use. (default: gemini-2.0-flash)"
     )
     parser.add_argument(
         "-o", "--max-output",
@@ -64,7 +64,7 @@ def main():
     if response_text.startswith("Error:") or "Could not generate a response" in response_text:
         print(f"{AnsiColors.RED}{AnsiColors.BOLD}{response_text}{AnsiColors.RESET}", end="")
     else:
-        print(response_text, end="") 
+        print(response_text) 
 
 if __name__ == "__main__":
     main()
