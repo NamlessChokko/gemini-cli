@@ -3,6 +3,13 @@ import argparse
 import sys
 from .main import generate_text
 
+class AnsiColors:
+    RED = "\033[91m"
+    GREEN = "\033[92m" 
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    YELLOW = "\033[93m"
+
 def main():
     parser = argparse.ArgumentParser(
         description="Terminal client for Gemini AI interactions."
@@ -21,8 +28,8 @@ def main():
     parser.add_argument(
         "-m", "--model",
         type=str,
-        default="gemini-2.0-flash", 
-        help="The Gemini AI model to use. (default: gemini-2.0-flash)"
+        default="gemini-1.5-flash",
+        help="The Gemini AI model to use. (default: gemini-1.5-flash)"
     )
     parser.add_argument(
         "-o", "--max-output",
@@ -38,21 +45,26 @@ def main():
     args = parser.parse_args()
 
     if not 0.0 <= args.temperature <= 2.0:
-        print("Error: Temperature must be between 0.0 and 2.0.")
+        print(f"{AnsiColors.RED}{AnsiColors.BOLD}Error: Temperature must be between 0.0 and 2.0.{AnsiColors.RESET}", end="")
         sys.exit(1)
 
     if args.max_output <= 0:
-        print("Error: Maximum output tokens must be a positive integer.")
+        print(f"{AnsiColors.RED}{AnsiColors.BOLD}Error: Maximum output tokens must be a positive integer.{AnsiColors.RESET}", end="")
         sys.exit(1)
 
-    print("Generating response...")
+    print(f"{AnsiColors.YELLOW}Generating response...{AnsiColors.RESET}\n", end="") # Opcional: colorear el mensaje de "generando"
+    
     response_text = generate_text(
         prompt=args.prompt,
         temperature=args.temperature,
         max_out=args.max_output,
         ai_model=args.model
     )
-    print(response_text)
+
+    if response_text.startswith("Error:") or "Could not generate a response" in response_text:
+        print(f"{AnsiColors.RED}{AnsiColors.BOLD}{response_text}{AnsiColors.RESET}", end="")
+    else:
+        print(response_text, end="") 
 
 if __name__ == "__main__":
     main()
