@@ -161,7 +161,7 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## 📢 Contact
 
-For questions or support, please open an issue on the [GitHub repository](https://github.com/NamlessChokko/gemini-cli.git/issues).
+For questions or support, please open an issue on the [GitHub repository](https://github.com/NamlessChokko/gemini-cli).
 
 ---
 
