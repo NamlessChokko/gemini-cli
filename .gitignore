@@ -9,7 +9,8 @@ __pycache__/
 ENV/
 env/
 venv/
-# El venv dedicado que crearemos con install.sh
+
+# Dedicated venv
 .gemini-cli-venv/ 
 
 # Distribution / packaging
